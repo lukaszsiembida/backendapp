@@ -8,6 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class DepartmentDto {
 
+    private final Long departmentId;
     private final String departmentName;
 
 

@@ -9,7 +9,7 @@ public class DepartmentResourceFactory {
     }
 
     public static DepartmentDto fromEntity(Department department) {
-        return new DepartmentDto(department.getDepartmentName());
+        return new DepartmentDto(department.getDepartmentId(), department.getDepartmentName());
     }
 
 }
