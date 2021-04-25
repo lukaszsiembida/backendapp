@@ -8,6 +8,7 @@ import pl.luxmed.backendapp.entity.Department;
 @AllArgsConstructor
 public class EmployeeDto {
 
+    private final Long employeeId;
     private final String firstName;
     private final String lastName;
     private final String pesel;
