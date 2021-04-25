@@ -2,13 +2,16 @@ package pl.luxmed.backendapp.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.luxmed.backendapp.dto.EmployeeDto;
+import pl.luxmed.backendapp.dto.EmployeeResourceFactory;
 import pl.luxmed.backendapp.entity.Employee;
 import pl.luxmed.backendapp.repository.EmployeeRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/employees")
 public class EmployeeControler {
 
     private final EmployeeRepository employeeRepository;
@@ -17,18 +20,19 @@ public class EmployeeControler {
         this.employeeRepository = employeeRepository;
     }
 
-    @PostMapping
-    Employee addEmployee(@RequestBody Employee employee){
-       return employeeRepository.save(employee);
+    @PostMapping("/add")
+    EmployeeDto addEmployee(@RequestBody EmployeeDto dto) {
+        Employee employee = employeeRepository.save(EmployeeResourceFactory.toEntity(dto));
+        return EmployeeResourceFactory.fromEntity(employee);
     }
 
     @GetMapping
-    List<Employee> listEmployees(){
-        return employeeRepository.findAll();
+    List<EmployeeDto> listEmployees() {
+        return employeeRepository.findAll().stream().map(EmployeeResourceFactory::fromEntity).collect(Collectors.toList());
     }
 
     @DeleteMapping
-    ResponseEntity<Employee> deleteEmployee(@RequestBody Long idEmployee){
+    ResponseEntity<Employee> deleteEmployee(@RequestBody Long idEmployee) {
         employeeRepository.deleteById(idEmployee);
         return ResponseEntity.ok().build();
     }

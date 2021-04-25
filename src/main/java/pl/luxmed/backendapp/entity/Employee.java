@@ -28,4 +28,10 @@ public class Employee {
     @JoinColumn(name = "departmentId")
     private Department department;
 
+    public Employee(String firstName, String lastName, String pesel, Integer salary) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.pesel = pesel;
+        this.salary = salary;
+    }
 }
