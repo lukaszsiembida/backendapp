@@ -3,39 +3,39 @@ package pl.luxmed.backendapp.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.luxmed.backendapp.dto.EmployeeDto;
-import pl.luxmed.backendapp.dto.EmployeeResourceFactory;
 import pl.luxmed.backendapp.entity.Employee;
-import pl.luxmed.backendapp.repository.EmployeeRepository;
+import pl.luxmed.backendapp.service.EmployeeService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employees")
 public class EmployeeControler {
 
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
-    public EmployeeControler(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeControler(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @PostMapping("/add")
-    EmployeeDto addEmployee(@RequestBody EmployeeDto dto) {
-        Employee employee = employeeRepository.save(EmployeeResourceFactory.toEntity(dto));
-        return EmployeeResourceFactory.fromEntity(employee);
+    ResponseEntity<EmployeeDto> addOrEditEmployee(@RequestBody EmployeeDto dto) {
+     return ResponseEntity.ok(employeeService.addOrEditEmployee(dto));
     }
 
     @GetMapping
-    List<EmployeeDto> listEmployees() {
-        return employeeRepository.findAll().stream().map(EmployeeResourceFactory::fromEntity).collect(Collectors.toList());
+    ResponseEntity<List<EmployeeDto>> getListEmployees() {
+        return ResponseEntity.ok(employeeService.getListEmployees());
     }
 
-    @DeleteMapping
-    ResponseEntity<Employee> deleteEmployee(@RequestBody Long idEmployee) {
-        employeeRepository.deleteById(idEmployee);
+    @GetMapping("/{departmentId}")
+    ResponseEntity<List<EmployeeDto>> getListEmployeesWithDepartmentId(@PathVariable Long id){
+        return ResponseEntity.ok(employeeService.getListEmployeesWithDepartmentId(id));
+    }
+
+    @DeleteMapping("/{employeeId}")
+    ResponseEntity<Employee> deleteEmployee(@PathVariable Long employeeId) {
+        employeeService.deleteEmployeeById(employeeId);
         return ResponseEntity.ok().build();
     }
-
-
 }

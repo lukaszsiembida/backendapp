@@ -2,6 +2,7 @@ package pl.luxmed.backendapp.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.luxmed.backendapp.dto.EmployeeDto;
 
 import javax.persistence.*;
 
@@ -33,5 +34,12 @@ public class Employee {
         this.lastName = lastName;
         this.pesel = pesel;
         this.salary = salary;
+    }
+
+    public void updateEmployee(EmployeeDto dto) {
+        this.setFirstName(dto.getFirstName());
+        this.setLastName(dto.getLastName());
+        this.setPesel(dto.getPesel());
+        this.setSalary(dto.getSalary());
     }
 }

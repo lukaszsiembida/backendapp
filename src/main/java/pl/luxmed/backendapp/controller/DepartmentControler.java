@@ -3,34 +3,36 @@ package pl.luxmed.backendapp.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.luxmed.backendapp.dto.DepartmentDto;
-import pl.luxmed.backendapp.dto.DepartmentResourceFactory;
 import pl.luxmed.backendapp.entity.Department;
-import pl.luxmed.backendapp.repository.DepartmentRepository;
+import pl.luxmed.backendapp.service.DepartmentService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RestController
 @RequestMapping("/departments")
 public class DepartmentControler {
 
-    private final DepartmentRepository departmentRepository;
+    private final DepartmentService departmentService;
 
-    public DepartmentControler(DepartmentRepository departmentRepository) {
-        this.departmentRepository = departmentRepository;
+    public DepartmentControler(DepartmentService departmentService) {
+        this.departmentService = departmentService;
     }
 
     @PostMapping("/add")
     ResponseEntity<DepartmentDto> addDepartment(@RequestBody DepartmentDto dto) {
-        Department department = departmentRepository.save(DepartmentResourceFactory.toEntity(dto));
-        return ResponseEntity.ok(DepartmentResourceFactory.fromEntity(department));
+        return ResponseEntity.ok(departmentService.addDepartment(dto));
     }
 
     @GetMapping
     ResponseEntity<List<DepartmentDto>> getDepartments() {
-     List<DepartmentDto> departmentDtos = departmentRepository.findAll().stream().map(DepartmentResourceFactory::fromEntity).collect(Collectors.toList());
-        return ResponseEntity.ok(departmentDtos);
+        return ResponseEntity.ok(departmentService.getDepartments());
+    }
+
+    @DeleteMapping("/{departmentId}")
+    ResponseEntity<Department> deleteDepartmentById(@PathVariable Long departmentId) {
+        departmentService.deleteDepartmentById(departmentId);
+        return ResponseEntity.ok().build();
     }
 
 
