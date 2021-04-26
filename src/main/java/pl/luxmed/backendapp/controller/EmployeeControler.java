@@ -19,8 +19,8 @@ public class EmployeeControler {
     }
 
     @PostMapping("/add")
-    ResponseEntity<EmployeeDto> addOrEditEmployee(@RequestBody EmployeeDto dto) {
-     return ResponseEntity.ok(employeeService.addOrEditEmployee(dto));
+    ResponseEntity<EmployeeDto> addEmployee(@RequestBody EmployeeDto dto) {
+     return ResponseEntity.ok(employeeService.addEmployee(dto));
     }
 
     @GetMapping

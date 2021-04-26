@@ -1,16 +1,18 @@
 package pl.luxmed.backendapp.dto;
 
 
+import pl.luxmed.backendapp.entity.Department;
 import pl.luxmed.backendapp.entity.Employee;
 
 public class EmployeeResourceFactory {
 
-    public static Employee toEntity(EmployeeDto dto) {
+    public static Employee toEntity(EmployeeDto dto, Department department) {
         return new Employee(
                 dto.getFirstName(),
                 dto.getLastName(),
                 dto.getPesel(),
-                dto.getSalary());
+                dto.getSalary(),
+                department);
     }
 
     public static EmployeeDto fromEntity(Employee employee) {
@@ -23,5 +25,8 @@ public class EmployeeResourceFactory {
                 employee.getDepartment().getDepartmentName()
         );
     }
+
+
+
 
 }

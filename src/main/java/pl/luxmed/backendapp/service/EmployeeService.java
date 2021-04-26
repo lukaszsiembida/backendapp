@@ -4,11 +4,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.luxmed.backendapp.dto.EmployeeDto;
 import pl.luxmed.backendapp.dto.EmployeeResourceFactory;
-import pl.luxmed.backendapp.entity.Employee;
+import pl.luxmed.backendapp.entity.Department;
 import pl.luxmed.backendapp.repository.EmployeeRepository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,20 +15,16 @@ import java.util.stream.Collectors;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final DepartmentService departmentService;
 
-    public EmployeeDto addOrEditEmployee(EmployeeDto dto) {
-        if (dto.getEmployeeId() == null) {
-            return EmployeeResourceFactory.fromEntity(employeeRepository.save(EmployeeResourceFactory.toEntity(dto)));
+    public EmployeeDto addEmployee(EmployeeDto dto) {
+        Department department;
+        if(departmentService.findByDepartmentName(dto.getDepartmentName()).isEmpty()){
+           department = departmentService.saveDepartment(dto.getDepartmentName());
         } else {
-            Optional<Employee> optionalEmployee = employeeRepository.findById(dto.getEmployeeId());
-            if (optionalEmployee.isPresent()) {
-                Employee employee = optionalEmployee.get();
-                employee.updateEmployee(dto);
-                return EmployeeResourceFactory.fromEntity(employeeRepository.save(employee));
-            } else {
-                throw new RuntimeException("Nie można znaleźć użytkownika z id: " + dto.getEmployeeId());
-            }
+            department = departmentService.findByDepartmentName(dto.getDepartmentName()).stream().findFirst().get();
         }
+        return EmployeeResourceFactory.fromEntity(employeeRepository.save(EmployeeResourceFactory.toEntity(dto, department)));
     }
 
     public List<EmployeeDto> getListEmployees() {

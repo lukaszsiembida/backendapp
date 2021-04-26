@@ -2,7 +2,6 @@ package pl.luxmed.backendapp.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.luxmed.backendapp.dto.EmployeeDto;
 
 import javax.persistence.*;
 
@@ -13,7 +12,7 @@ import javax.persistence.*;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EMPLOYEE_ID")
     private Long employeeId;
     @Column(name = "FIRST_NAME")
@@ -29,17 +28,12 @@ public class Employee {
     @JoinColumn(name = "departmentId")
     private Department department;
 
-    public Employee(String firstName, String lastName, String pesel, Double salary) {
+    public Employee(String firstName, String lastName, String pesel, Double salary, Department department) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.pesel = pesel;
         this.salary = salary;
+        this.department = department;
     }
 
-    public void updateEmployee(EmployeeDto dto) {
-        this.setFirstName(dto.getFirstName());
-        this.setLastName(dto.getLastName());
-        this.setPesel(dto.getPesel());
-        this.setSalary(dto.getSalary());
-    }
 }

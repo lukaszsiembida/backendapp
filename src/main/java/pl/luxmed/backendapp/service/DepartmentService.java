@@ -7,10 +7,10 @@ import pl.luxmed.backendapp.entity.Department;
 import pl.luxmed.backendapp.repository.DepartmentRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-
 public class DepartmentService {
 
     private final DepartmentRepository departmentRepository;
@@ -24,14 +24,21 @@ public class DepartmentService {
         return DepartmentResourceFactory.fromEntity(department);
     }
 
+    public Department saveDepartment(String name){
+        Department department = new Department(name);
+        return departmentRepository.save(department);
+    }
+
 
     public List<DepartmentDto> getDepartments() {
        return departmentRepository.findAll().stream().map(DepartmentResourceFactory::fromEntity).collect(Collectors.toList());
     }
 
+    public List<Department> findByDepartmentName(String departmentName){
+        return departmentRepository.findByDepartmentName(departmentName);
+    }
 
    public void deleteDepartmentById(Long departmentId) {
       departmentRepository.deleteById(departmentId);
     }
-
 }
