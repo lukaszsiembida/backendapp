@@ -14,11 +14,14 @@ public class EmployeeResourceFactory {
     }
 
     public static EmployeeDto fromEntity(Employee employee) {
-        return new EmployeeDto(employee.getEmployeeId(),
+        return new EmployeeDto(
+                employee.getEmployeeId(),
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getPesel(),
-                employee.getSalary());
+                employee.getSalary(),
+                employee.getDepartment().getDepartmentName()
+        );
     }
 
 }

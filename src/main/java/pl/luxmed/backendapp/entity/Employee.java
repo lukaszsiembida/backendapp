@@ -22,13 +22,13 @@ public class Employee {
     @Column(name ="PESEL")
     private String pesel;
     @Column(name = "SALARY")
-    private Integer salary;
+    private Double salary;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "departmentId")
     private Department department;
 
-    public Employee(String firstName, String lastName, String pesel, Integer salary) {
+    public Employee(String firstName, String lastName, String pesel, Double salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.pesel = pesel;
