@@ -19,6 +19,10 @@ public class EmployeeService {
 
     public EmployeeDto addEmployee(EmployeeDto dto) {
         Department department;
+        if(dto.getDepartmentName().equals("")){
+            employeeRepository.save(EmployeeResourceFactory.toEntity(dto));
+            return dto;
+        }
         if(departmentService.findByDepartmentName(dto.getDepartmentName()).isEmpty()){
            department = departmentService.saveDepartment(dto.getDepartmentName());
         } else {
