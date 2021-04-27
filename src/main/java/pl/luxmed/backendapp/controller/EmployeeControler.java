@@ -28,7 +28,7 @@ public class EmployeeControler {
         return ResponseEntity.ok(employeeService.getListEmployees());
     }
 
-    @GetMapping("/{departmentId}")
+    @GetMapping("/{id}")
     ResponseEntity<List<EmployeeDto>> getListEmployeesWithDepartmentId(@PathVariable Long id){
         return ResponseEntity.ok(employeeService.getListEmployeesWithDepartmentId(id));
     }

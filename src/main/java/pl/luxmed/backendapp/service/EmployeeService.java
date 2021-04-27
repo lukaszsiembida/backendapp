@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.luxmed.backendapp.dto.EmployeeDto;
 import pl.luxmed.backendapp.dto.EmployeeResourceFactory;
 import pl.luxmed.backendapp.entity.Department;
+import pl.luxmed.backendapp.entity.Employee;
 import pl.luxmed.backendapp.repository.EmployeeRepository;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class EmployeeService {
     public EmployeeDto addEmployee(EmployeeDto dto) {
         Department department;
         if(dto.getDepartmentName().equals("")){
-            employeeRepository.save(EmployeeResourceFactory.toEntity(dto));
+            Employee employee = employeeRepository.save(EmployeeResourceFactory.toEntity(dto));
             return dto;
         }
         if(departmentService.findByDepartmentName(dto.getDepartmentName()).isEmpty()){

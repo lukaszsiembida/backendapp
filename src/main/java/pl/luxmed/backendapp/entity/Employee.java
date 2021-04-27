@@ -5,9 +5,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "EMPLOYEE")
-@Data
 @NoArgsConstructor
 public class Employee {
 
@@ -41,6 +41,7 @@ public class Employee {
         this.lastName = lastName;
         this.pesel = pesel;
         this.salary = salary;
+        this.setDepartment(null);
     }
 
 }
