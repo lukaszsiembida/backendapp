@@ -31,7 +31,7 @@ public class EmployeeResourceFactory {
                 employee.getLastName(),
                 employee.getPesel(),
                 employee.getSalary(),
-                employee.getDepartment().getDepartmentName()
+                employee.getNameNullDepartment()
         );
     }
 }

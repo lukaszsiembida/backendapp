@@ -44,4 +44,11 @@ public class Employee {
         this.setDepartment(null);
     }
 
+    public String getNameNullDepartment(){
+        if(department==null){
+            return "";
+        } else {
+            return department.getDepartmentName();
+        }
+    }
 }
