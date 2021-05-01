@@ -36,14 +36,6 @@ public class Employee {
         this.department = department;
     }
 
-    public Employee(String firstName, String lastName, String pesel, Double salary) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.pesel = pesel;
-        this.salary = salary;
-        this.setDepartment(null);
-    }
-
     public String getNameNullDepartment(){
         if(department==null){
             return "";

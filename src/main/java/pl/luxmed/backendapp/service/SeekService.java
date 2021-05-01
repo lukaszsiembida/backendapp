@@ -26,10 +26,10 @@ public class SeekService {
         List<Employee> seekEmployees = new ArrayList<>();
         for (Employee e : employees) {
             boolean condition =
-                    e.getFirstName().contains(dto.getSeekText()) ||
-                    e.getLastName().contains(dto.getSeekText()) ||
-                    e.getPesel().contains(dto.getSeekText()) ||
-                    e.getSalary().toString().contains(dto.getSeekText());
+                    e.getFirstName().startsWith(dto.getSeekText()) ||
+                    e.getLastName().startsWith(dto.getSeekText()) ||
+                    e.getPesel().startsWith(dto.getSeekText()) ||
+                    e.getSalary().toString().startsWith(dto.getSeekText());
             if(condition){
                seekEmployees.add(e);
             }
