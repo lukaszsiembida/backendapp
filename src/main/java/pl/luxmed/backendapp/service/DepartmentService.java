@@ -4,9 +4,10 @@ import org.springframework.stereotype.Service;
 import pl.luxmed.backendapp.dto.DepartmentDto;
 import pl.luxmed.backendapp.dto.DepartmentResourceFactory;
 import pl.luxmed.backendapp.entity.Department;
+import pl.luxmed.backendapp.entity.Employee;
 import pl.luxmed.backendapp.repository.DepartmentRepository;
+import pl.luxmed.backendapp.repository.EmployeeRepository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import java.util.stream.Collectors;
 public class DepartmentService {
 
     private final DepartmentRepository departmentRepository;
+    private final EmployeeRepository employeeRepository;
 
-    public DepartmentService(DepartmentRepository departmentRepository) {
+    public DepartmentService(DepartmentRepository departmentRepository, EmployeeRepository employeeRepository) {
         this.departmentRepository = departmentRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     public DepartmentDto addDepartment(DepartmentDto dto) {
@@ -38,9 +41,11 @@ public class DepartmentService {
         return departmentRepository.findByDepartmentName(departmentName);
     }
 
-    @Transactional
     public void deleteDepartmentById(Long departmentId) {
-        departmentRepository.findByDepartmentId(departmentId).getEmployees().forEach(e -> e.setDepartment(null));
+        List<Employee> employeeList = departmentRepository.findByDepartmentId(departmentId).getEmployees();
+        for (Employee employee : employeeList) {
+            employeeRepository.delete(employee);
+        }
         departmentRepository.deleteById(departmentId);
     }
 }

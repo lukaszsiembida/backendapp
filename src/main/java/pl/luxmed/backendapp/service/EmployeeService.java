@@ -8,6 +8,7 @@ import pl.luxmed.backendapp.entity.Department;
 import pl.luxmed.backendapp.entity.Employee;
 import pl.luxmed.backendapp.repository.EmployeeRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,10 +21,6 @@ public class EmployeeService {
 
     public EmployeeDto addEmployee(EmployeeDto dto) {
         Department department;
-        if(dto.getDepartmentName().equals("")){
-            Employee employee = employeeRepository.save(EmployeeResourceFactory.toEntity(dto));
-            return dto;
-        }
         if(departmentService.findByDepartmentName(dto.getDepartmentName()).isEmpty()){
            department = departmentService.saveDepartment(dto.getDepartmentName());
         } else {
