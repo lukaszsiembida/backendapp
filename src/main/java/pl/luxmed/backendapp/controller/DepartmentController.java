@@ -11,11 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/departments")
-public class DepartmentControler {
+public class DepartmentController {
 
     private final DepartmentService departmentService;
 
-    public DepartmentControler(DepartmentService departmentService) {
+    public DepartmentController(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
 
