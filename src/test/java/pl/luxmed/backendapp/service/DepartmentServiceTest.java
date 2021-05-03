@@ -41,7 +41,6 @@ class DepartmentServiceTest {
     private Department department2;
     private String departmentName1;
     private String departmentName2;
-    private Employee employee1;
 
     @BeforeEach
     public void setUp() {
@@ -49,11 +48,10 @@ class DepartmentServiceTest {
         MockitoAnnotations.initMocks(departmentServiceMock);
 
         departmentName1 = "IT";
-        departmentName1 = "HR";
+        departmentName2 = "HR";
         department1 = new Department(departmentName1);
         department2 = new Department(departmentName2);
-        employee1 = new Employee("Jan", "Nowak", "94031400942", 3200.00, department1);
-    }
+   }
 
 
     @Test
@@ -108,12 +106,11 @@ class DepartmentServiceTest {
     }
 
     @Test
-    void shouldDeleteDepartmentById() {
-
+    void shouldDeleteEmployeeById() {
         //given
-        /*doNothing().when(departmentRepository).deleteById(department1.getDepartmentId());
-        doNothing().when(employeeRepository.delete());
+        departmentServiceMock.deleteDepartmentById(1L);
+        //when - then
+        verify(departmentRepository).deleteById(1L);
 
-        departmentServiceMock.deleteDepartmentById(department1.getDepartmentId());*/
     }
 }

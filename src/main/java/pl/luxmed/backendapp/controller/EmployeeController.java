@@ -20,7 +20,7 @@ public class EmployeeController {
 
     @PostMapping("/add")
     ResponseEntity<EmployeeDto> addEmployee(@RequestBody EmployeeDto dto) {
-     return ResponseEntity.ok(employeeService.addEmployee(dto));
+        return ResponseEntity.ok(employeeService.addEmployee(dto));
     }
 
     @GetMapping
@@ -34,8 +34,8 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{employeeId}")
-    ResponseEntity<Employee> deleteEmployee(@PathVariable Long employeeId) {
+    String deleteEmployeeById(@PathVariable Long employeeId) {
         employeeService.deleteEmployeeById(employeeId);
-        return ResponseEntity.ok().build();
+        return "DELETED";
     }
 }

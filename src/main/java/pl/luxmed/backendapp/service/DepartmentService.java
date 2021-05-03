@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import pl.luxmed.backendapp.dto.DepartmentDto;
 import pl.luxmed.backendapp.dto.DepartmentResourceFactory;
 import pl.luxmed.backendapp.entity.Department;
-import pl.luxmed.backendapp.entity.Employee;
 import pl.luxmed.backendapp.repository.DepartmentRepository;
 import pl.luxmed.backendapp.repository.EmployeeRepository;
 
@@ -42,10 +41,7 @@ public class DepartmentService {
     }
 
     public void deleteDepartmentById(Long departmentId) {
-        List<Employee> employeeList = departmentRepository.findByDepartmentId(departmentId).getEmployees();
-        for (Employee employee : employeeList) {
-            employeeRepository.delete(employee);
-        }
         departmentRepository.deleteById(departmentId);
     }
+
 }

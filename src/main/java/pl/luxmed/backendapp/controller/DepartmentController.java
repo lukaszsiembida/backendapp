@@ -1,5 +1,6 @@
 package pl.luxmed.backendapp.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.luxmed.backendapp.dto.DepartmentDto;
@@ -30,10 +31,8 @@ public class DepartmentController {
     }
 
     @DeleteMapping("/{departmentId}")
-    ResponseEntity<Department> deleteDepartmentById(@PathVariable Long departmentId) {
+    String deleteDepartmentById(@PathVariable Long departmentId) {
         departmentService.deleteDepartmentById(departmentId);
-        return ResponseEntity.ok().build();
+        return "DELETED";
     }
-
-
 }

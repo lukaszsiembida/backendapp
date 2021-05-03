@@ -21,7 +21,7 @@ public class Department {
     @Column(name = "DEPARTMENT_NAME", unique = true)
     private  String departmentName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", orphanRemoval = true, cascade = {CascadeType.REMOVE})
     private List<Employee> employees;
 
     public Department(String departmentName) {

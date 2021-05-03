@@ -7,10 +7,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
-import pl.luxmed.backendapp.dto.DepartmentDto;
-import pl.luxmed.backendapp.dto.DepartmentResourceFactory;
+import pl.luxmed.backendapp.dto.EmployeeDto;
+import pl.luxmed.backendapp.dto.EmployeeResourceFactory;
 import pl.luxmed.backendapp.entity.Department;
-import pl.luxmed.backendapp.service.DepartmentService;
+import pl.luxmed.backendapp.entity.Employee;
+import pl.luxmed.backendapp.service.EmployeeService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -20,46 +21,46 @@ import static org.mockito.Mockito.when;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @ExtendWith(MockitoExtension.class)
-class DepartmentControllerTest {
+class EmployeeControllerTest {
 
 
     @Mock(lenient = true)
-    DepartmentService departmentService;
+    private EmployeeService employeeService;
 
-    DepartmentController departmentControllerMock;
+    EmployeeController employeeControllerMock;
 
     private Department department1;
-    private String departmentName1;
-
+    private Department department2;
+    private Employee employee1;
+    private Employee employee2;
 
     @BeforeEach
     public void setUp() {
-        departmentControllerMock = new DepartmentController(departmentService);
+        employeeControllerMock = new EmployeeController(employeeService);
 
-        departmentName1 = "IT";
-        department1 = new Department(departmentName1);
+        department1 = new Department("IT");
+        employee1 = new Employee("Jan", "Nowak", "94021300674", 3200.00, department1);
 
     }
-
 
     @Test
     void shouldAddDepartment() {
         //given
-        DepartmentDto dto = DepartmentResourceFactory.fromEntity(department1);
+        EmployeeDto dto = EmployeeResourceFactory.fromEntity(employee1);
 
         //when-then
-        when(departmentService.addDepartment(any())).thenReturn(dto);
-        ResponseEntity<DepartmentDto> result = departmentControllerMock.addDepartment(dto);
+        when(employeeService.addEmployee(any())).thenReturn(dto);
+        ResponseEntity<EmployeeDto> result = employeeControllerMock.addEmployee(dto);
         assertNotNull(result);
         assertEquals(dto, result.getBody());
     }
 
     @Test
-    void shouldDeleteDepartmentById() {
+    void shouldDeleteEmployeeById() {
         //given
-        departmentControllerMock.deleteDepartmentById(1L);
+        employeeControllerMock.deleteEmployeeById(1L);
         //when - then
-        verify(departmentService).deleteDepartmentById(1L);
+        verify(employeeService).deleteEmployeeById(1L);
 
     }
 }

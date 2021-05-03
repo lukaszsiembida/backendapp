@@ -7,6 +7,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.luxmed.backendapp.dto.DepartmentResourceFactory;
 import pl.luxmed.backendapp.dto.EmployeeDto;
 import pl.luxmed.backendapp.dto.EmployeeResourceFactory;
@@ -49,18 +51,6 @@ class EmployeeServiceTest {
         employee1 = new Employee("Jan", "Nowak", "94021300674", 3200.00, department1);
         employee2 = new Employee("Julia", "Szoja", "87032300832", 3800.00, department1);
         employee3 = new Employee("Stefan", "Czarnecki", "56112312398", 4800.00, department2);
-    }
-
-    @Test
-    void shouldAddEmployee() {
-
-        /*//given
-        EmployeeDto dto = EmployeeResourceFactory.fromEntity(employee1);
-        //when //then
-        when(EmployeeResourceFactory.fromEntity(employeeRepository.save(employee1))).thenReturn(dto);
-        EmployeeDto resultDto = employeeServiceMock.addEmployee(dto);
-        assertEquals(employee1, resultDto);*/
-
     }
 
     @Test
