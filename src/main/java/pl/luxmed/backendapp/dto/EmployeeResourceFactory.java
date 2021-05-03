@@ -15,6 +15,16 @@ public class EmployeeResourceFactory {
                 department);
     }
 
+    public static  Employee toEntity(EmployeeDto dto){
+        return new Employee(
+          dto.getFirstName(),
+                dto.getLastName(),
+                dto.getPesel(),
+                dto.getSalary(),
+                new Department(dto.getDepartmentName())
+        );
+    }
+
     public static EmployeeDto fromEntity(Employee employee) {
         return new EmployeeDto(
                 employee.getEmployeeId(),
@@ -22,7 +32,7 @@ public class EmployeeResourceFactory {
                 employee.getLastName(),
                 employee.getPesel(),
                 employee.getSalary(),
-                employee.getNameNullDepartment()
+                employee.getDepartment().getDepartmentName()
         );
     }
 }

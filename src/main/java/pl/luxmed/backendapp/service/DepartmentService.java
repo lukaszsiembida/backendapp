@@ -37,7 +37,7 @@ public class DepartmentService {
         return departmentRepository.findAll().stream().map(DepartmentResourceFactory::fromEntity).collect(Collectors.toList());
     }
 
-    public List<Department> findByDepartmentName(String departmentName) {
+    public Department findByDepartmentName(String departmentName) {
         return departmentRepository.findByDepartmentName(departmentName);
     }
 

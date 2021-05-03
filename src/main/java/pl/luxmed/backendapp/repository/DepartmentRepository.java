@@ -10,8 +10,8 @@ import java.util.Optional;
 
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
-    @Query("select p from Department p where upper(p.departmentName) like concat('%',upper(?1), '%')")
-    List<Department> findByDepartmentName(String query);
+    @Query("select distinct p from Department p where upper(p.departmentName) like concat('%',upper(?1), '%')")
+    Department findByDepartmentName(String query);
 
     Department findByDepartmentId (Long id);
 }

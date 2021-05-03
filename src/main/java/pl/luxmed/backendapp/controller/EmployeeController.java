@@ -30,7 +30,7 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     ResponseEntity<List<EmployeeDto>> getListEmployeesWithDepartmentId(@PathVariable Long id){
-        return ResponseEntity.ok(employeeService.getListEmployeesWithDepartmentId(id));
+        return ResponseEntity.ok(employeeService.getListEmployeesByDepartmentId(id));
     }
 
     @DeleteMapping("/{employeeId}")

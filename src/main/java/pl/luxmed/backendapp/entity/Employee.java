@@ -19,7 +19,7 @@ public class Employee {
     private String firstName;
     @Column(name = "LAST_NAME")
     private String lastName;
-    @Column(name ="PESEL")
+    @Column(name ="PESEL", length = 11, unique = true)
     private String pesel;
     @Column(name = "SALARY")
     private Double salary;

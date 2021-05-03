@@ -5,10 +5,8 @@ import org.springframework.stereotype.Service;
 import pl.luxmed.backendapp.dto.EmployeeDto;
 import pl.luxmed.backendapp.dto.EmployeeResourceFactory;
 import pl.luxmed.backendapp.entity.Department;
-import pl.luxmed.backendapp.entity.Employee;
 import pl.luxmed.backendapp.repository.EmployeeRepository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,10 +19,10 @@ public class EmployeeService {
 
     public EmployeeDto addEmployee(EmployeeDto dto) {
         Department department;
-        if(departmentService.findByDepartmentName(dto.getDepartmentName()).isEmpty()){
+        if(departmentService.findByDepartmentName(dto.getDepartmentName()) == null){
            department = departmentService.saveDepartment(dto.getDepartmentName());
         } else {
-            department = departmentService.findByDepartmentName(dto.getDepartmentName()).stream().findFirst().get();
+            department = departmentService.findByDepartmentName(dto.getDepartmentName());
         }
         return EmployeeResourceFactory.fromEntity(employeeRepository.save(EmployeeResourceFactory.toEntity(dto, department)));
     }
@@ -33,7 +31,7 @@ public class EmployeeService {
         return employeeRepository.findAll().stream().map(EmployeeResourceFactory::fromEntity).collect(Collectors.toList());
     }
 
-    public List<EmployeeDto> getListEmployeesWithDepartmentId(Long id) {
+    public List<EmployeeDto> getListEmployeesByDepartmentId(Long id) {
         return employeeRepository.findAllByDepartmentId(id).stream().map(EmployeeResourceFactory::fromEntity).collect(Collectors.toList());
     }
 
